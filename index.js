@@ -15,6 +15,11 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.post("/warmup", cors()),
+  async (req, res) => {
+    res.send("Server is warming up!");
+  };
+
 app.post("/payment", cors(), async (req, res) => {
   let { plan, id, name, email } = req.body;
 
@@ -97,21 +102,21 @@ app.post("/cancel-subscription", async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
-  }   
+  }
 });
 
-app.post('/resume-subscription', async (req, res) => {
-    const { subscriptionId } = req.body;
+app.post("/resume-subscription", async (req, res) => {
+  const { subscriptionId } = req.body;
 
-    try {
-        const subscription = await stripe.subscriptions.update(subscriptionId, {
-      cancel_at_period_end:false
-        });
+  try {
+    const subscription = await stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: false,
+    });
 
-        res.json(subscription);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+    res.json(subscription);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 app.post("/retrieve-data", async (req, res) => {
