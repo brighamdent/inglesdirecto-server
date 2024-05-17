@@ -17,6 +17,7 @@ app.use(cors());
 
 app.get("/warmup", (req, res) => {
   res.send("Server is warming up!");
+  console.log("There was activity and I am warming up!");
 });
 
 app.post("/payment", cors(), async (req, res) => {
