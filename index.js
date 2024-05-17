@@ -15,10 +15,9 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.post("/warmup", cors()),
-  async (req, res) => {
-    res.send("Server is warming up!");
-  };
+app.get("/warmup", (req, res) => {
+  res.send("Server is warming up!");
+});
 
 app.post("/payment", cors(), async (req, res) => {
   let { plan, id, name, email } = req.body;
